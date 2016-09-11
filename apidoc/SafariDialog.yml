@@ -76,6 +76,7 @@ properties:
         is only available in iOS 10 and later and will be ignored on older versions.
     type: String
     osver: {ios: {min: "10.0"}}
+    since: 6.0.0
 
 methods:
   - name: isOpen
@@ -140,8 +141,9 @@ events:
   - name: load
     summary: Fired when the initial URL load is complete.
     description: |
-        This method is invoked when the safari dialog completes the loading of the URL that you pass to
+        This event is invoked when the safari dialog completes the loading of the URL that you pass to
         its initializer. It is not invoked for any subsequent page loads in the same safari dialog instance.
+        Note: This event is available in Titanium SDK 6.0.0 and later.
     properties:
       - name: url
         summary: The URL provided when opening the SafariDialog
