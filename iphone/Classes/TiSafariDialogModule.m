@@ -98,6 +98,16 @@
     return _sfController;
 }
 
+- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully
+{
+    if ([self _hasListeners:@"load"]) {
+        [self fireEvent:@"load" withObject:@{
+            @"url": [_url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+            @"success": NUMBOOL(didLoadSuccessfully)
+        }];
+    }
+}
+
 #pragma Public APIs
 
 - (id)opened

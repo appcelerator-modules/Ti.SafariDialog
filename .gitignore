@@ -16,3 +16,5 @@ xcuserdata
 profile
 *.moved-aside
 DerivedData
+/.DS_Store
+/iphone/.DS_Store

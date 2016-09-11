@@ -3,6 +3,7 @@ summary: Allows a Titanium application to use the iOS Safari ViewController to c
 platforms: [iphone, ipad]
 since: "5.1.0"
 extends: Titanium.Module
+osver: {ios: {min: "9.0"}}
 description: |
     
     The SafariDialog module provides Titanium access to the native SFSafariViewController. This enables you to 
@@ -52,28 +53,40 @@ properties:
     summary: Indicates if SafariDialog is supported.
     type: Boolean
     osver: {ios: {min: "9.0"}}
-    platforms: [iphone,ipad]
     permission: read-only
 
   - name: opened
     summary: Indicates is SafariDialog is open.
     type: Boolean
     osver: {ios: {min: "9.0"}}
-    platforms: [iphone,ipad] 
     permission: read-only
+    
+  - name: tintColor
+    summary: The view's tintColor. This property is applicable on iOS 7 and greater. 
+    description: |
+        This property is a direct correspondant of the tintColor property of UIView on iOS. 
+        If no value is specified, the tintColor of the View is inherited from its superview. 
+    type: String
+    osver: {ios: {min: "9.0"}}
+    
+  - name: barColor
+    summary: Background color for the nav bar, as a color name or hex triplet.
+    description: |
+        For information about color values, see the "Colors" section of <Titanium.UI>. This property
+        is only available in iOS 10 and later and will be ignored on older versions.
+    type: String
+    osver: {ios: {min: "10.0"}}
 
 methods:
   - name: isOpen
     summary: Indicates if SafariDialog is open.
     osver: {ios: {min: "9.0"}}
-    platforms: [iphone,ipad]    
     returns:
         type: Boolean
 
   - name: isSupported
     summary: Indicates if SafariDialog is supported.
     osver: {ios: {min: "9.0"}}
-    platforms: [iphone,ipad]    
     returns:
         type: Boolean
 
@@ -89,7 +102,6 @@ methods:
           });
        }
     osver: {ios: {min: "9.0"}}
-    platforms: [iphone,ipad]    
     parameters:
       - name: params
         summary: |
@@ -110,7 +122,6 @@ methods:
           dialog.close();
        }
     osver: {ios: {min: "9.0"}}
-    platforms: [iphone,ipad]
 events:
   - name: open
     summary: |
@@ -119,7 +130,6 @@ events:
       - name: url
         summary: The URL provided when opening the SafariDialog
         type: String
-        platforms: [iphone, ipad]
   - name: close
     summary: |
       The close event is fired when the SafariDialog is closed by the user or programmatically.
@@ -127,5 +137,16 @@ events:
       - name: url
         summary: The URL provided when opening the SafariDialog
         type: String
-        platforms: [iphone, ipad]
+  - name: load
+    summary: Fired when the initial URL load is complete.
+    description: |
+        This method is invoked when the safari dialog completes the loading of the URL that you pass to
+        its initializer. It is not invoked for any subsequent page loads in the same safari dialog instance.
+    properties:
+      - name: url
+        summary: The URL provided when opening the SafariDialog
+        type: String
+      - name: success
+        summary: Returns `true` if loading completed successfully, `false` otherwise.
+        type: Boolean
                
