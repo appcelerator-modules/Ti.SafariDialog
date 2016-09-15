@@ -2,3 +2,9 @@
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
 #endif
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+#define IS_IOS_10 true
+#else
+#define IS_IOS_10 false
+#endif
