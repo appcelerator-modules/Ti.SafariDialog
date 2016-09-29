@@ -167,11 +167,9 @@
         if ([TiSafaridialogModule isIOS10OrGreater]) {
 #if IS_IOS_10
             [safari setPreferredControlTintColor:[newColor _color]];
-#else
-            [[safari view] setTintColor:[newColor _color]];
 #endif
         } else {
-            [[[safari navigationController] navigationBar] setTintColor:[newColor _color]];
+            [[safari view] setTintColor:[newColor _color]];
         }
     }
     
