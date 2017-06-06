@@ -6,7 +6,7 @@
  * Please see the LICENSE included with this distribution for details.
  */
 
-#import "TiSafariDialogModule.h"
+#import "TiSafaridialogModule.h"
 #import "TiBase.h"
 #import "TiHost.h"
 #import "TiUtils.h"
@@ -29,7 +29,6 @@
 }
 
 #pragma mark Lifecycle
-#pragma mark Lifecycle
 
 - (void)startup
 {
@@ -37,40 +36,13 @@
     [super startup];
 }
 
-- (void)shutdown:(id)sender
-{
-    [super shutdown:sender];
-}
-
-#pragma mark Cleanup
-
-- (void)dealloc
-{
-    RELEASE_TO_NIL(_sfController);
-    RELEASE_TO_NIL(_url);
-    
-    [super dealloc];
-}
-
-#pragma mark Internal Memory Management
-
-- (void)didReceiveMemoryWarning:(NSNotification*)notification
-{
-    [super didReceiveMemoryWarning:notification];
-}
-
 #pragma mark internal methods
-
-- (BOOL)checkSupported
-{
-    return [TiUtils isIOS9OrGreater];
-}
 
 - (void)teardown
 {
-    if(_sfController!=nil){
-        [_sfController setDelegate:nil];
-        _sfController = nil;
+    if (_safariController != nil) {
+        [_safariController setDelegate:nil];
+        _safariController = nil;
     }
     
     _isOpen = NO;
@@ -88,14 +60,28 @@
     [self teardown];
 }
 
-- (SFSafariViewController*)sfController:(NSString*)url withEntersReaderIfAvailable:(BOOL)entersReaderIfAvailable
+- (SFSafariViewController *)safariController:(NSString*)url withEntersReaderIfAvailable:(BOOL)entersReaderIfAvailable andBarCollapsingEnabled:(BOOL)barCollapsingEnabled
 {
-    if(_sfController == nil){
-        _sfController = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:[url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] entersReaderIfAvailable:entersReaderIfAvailable];
-        [_sfController setDelegate:self];
+    if (_safariController == nil) {
+        NSURL *safariURL = [NSURL URLWithString:[url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+#if IS_IOS_11
+        if (@available(iOS 11.0, *)) {
+            SFSafariViewControllerConfiguration *config = [[SFSafariViewControllerConfiguration alloc] init];
+            config.entersReaderIfAvailable = entersReaderIfAvailable;
+            config.barCollapsingEnabled = barCollapsingEnabled;
+            
+            _safariController = [[SFSafariViewController alloc] initWithURL:safariURL
+                                                          configuration:config];
+        }
+#else
+        _safariController = [[SFSafariViewController alloc] initWithURL:safariURL
+                                            entersReaderIfAvailable:entersReaderIfAvailable];
+#endif
+        
+        [_safariController setDelegate:self];
     }
     
-    return _sfController;
+    return _safariController;
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully
@@ -112,6 +98,7 @@
 
 - (id)opened
 {
+    DEPRECATED_REPLACED(@"SafariDialog.opened", @"6.2.0", @"SafariDialog.isOpen()");
     return NUMBOOL(_isOpen);
 }
 
@@ -122,20 +109,21 @@
 
 - (id)supported
 {
-    return NUMBOOL([self checkSupported]);
+    DEPRECATED_REPLACED(@"SafariDialog.supported", @"6.2.0", @"SafariDialog.isSupported()");
+    return [self isSupported:nil];
 }
 
-- (NSNumber*)isSupported:(id)unused
+- (NSNumber *)isSupported:(id)unused
 {
-    return NUMBOOL([self checkSupported]);
+    return NUMBOOL([TiUtils isIOS9OrGreater]);
 }
 
 - (void)close:(id)unused
 {
     ENSURE_UI_THREAD(close,unused);
     
-    if(_sfController != nil){
-        [[TiApp app] hideModalController:_sfController animated:YES];
+    if(_safariController != nil){
+        [[TiApp app] hideModalController:_safariController animated:YES];
         [self teardown];
     }
     _isOpen = NO;
@@ -151,11 +139,16 @@
         return;
     }
     
-    _url = [[TiUtils stringValue:@"url" properties:args] retain];
+    _url = [TiUtils stringValue:@"url" properties:args];
     BOOL animated = [TiUtils boolValue:@"animated" properties:args def:YES];
     BOOL entersReaderIfAvailable = [TiUtils boolValue:@"entersReaderIfAvailable" properties:args def:YES];
+    BOOL barCollapsingEnabled = NO;
     
-    SFSafariViewController* safari = [self sfController:_url withEntersReaderIfAvailable:entersReaderIfAvailable];
+#if IS_IOS_11
+    barCollapsingEnabled = [TiUtils boolValue:@"barCollapsingEnabled" properties:args def:YES];
+#endif
+    
+    SFSafariViewController* safari = [self safariController:_url withEntersReaderIfAvailable:entersReaderIfAvailable andBarCollapsingEnabled:barCollapsingEnabled];
     
     if ([args objectForKey:@"title"]) {
         [safari setTitle:[TiUtils stringValue:@"title" properties:args]];
@@ -182,8 +175,17 @@
         }
     }
 #endif
-
-    [self retain];
+    
+    
+#if IS_IOS_11
+    if ([args objectForKey:@"dismissButtonStyle"]) {
+        if (@available(iOS 11.0, *)) {
+            [safari setDismissButtonStyle:[TiUtils intValue:@"dismissButtonStyle" properties:args def:SFSafariViewControllerDismissButtonStyleDone]];
+        } else {
+            NSLog(@"[ERROR] Ti.SafariDialog: The dismissButtonStyle property is only available in iOS 11 and later");
+        }
+    }
+#endif
     
     [[TiApp app] showModalController:safari animated:animated];
     
@@ -198,6 +200,14 @@
         [self fireEvent:@"open" withObject:event];
     }
 }
+
+#pragma mark Constants
+
+#if IS_IOS_11
+MAKE_SYSTEM_PROP(DISMISS_BUTTON_STYLE_DONE, SFSafariViewControllerDismissButtonStyleDone);
+MAKE_SYSTEM_PROP(DISMISS_BUTTON_STYLE_CLOSE, SFSafariViewControllerDismissButtonStyleClose);
+MAKE_SYSTEM_PROP(DISMISS_BUTTON_STYLE_CANCEL, SFSafariViewControllerDismissButtonStyleCancel);
+#endif
 
 #pragma mark Utilities
 

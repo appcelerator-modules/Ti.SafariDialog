@@ -10,9 +10,8 @@
 #import <SafariServices/SafariServices.h>
 
 @interface TiSafaridialogModule :TiModule<SFSafariViewControllerDelegate>{
-
 @private
-    SFSafariViewController* _sfController;
+    SFSafariViewController* _safariController;
     NSString* _url;
     BOOL _isOpen;
 }
