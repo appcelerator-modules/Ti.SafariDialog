@@ -29,6 +29,8 @@
 		AA747D9F0F9514B9006C5449 /* TiSafaridialog_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* TiSafaridialog_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 		CAEDC01F1BA2963700D83952 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAEDC01E1BA2963700D83952 /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		DB7526111F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DB75260F1F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.h */; };
+		DB7526121F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7526101F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CAEDC01E1BA2963700D83952 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libTiSafaridialog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTiSafaridialog.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB75260F1F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TiSafaridialogAuthenticationSessionProxy.h; path = Classes/TiSafaridialogAuthenticationSessionProxy.h; sourceTree = "<group>"; };
+		DB7526101F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TiSafaridialogAuthenticationSessionProxy.m; path = Classes/TiSafaridialogAuthenticationSessionProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 				24DE9E1011C5FE74003F90F6 /* TiSafaridialogModuleAssets.m */,
 				24DD6CF71134B3F500162E58 /* TiSafaridialogModule.h */,
 				24DD6CF81134B3F500162E58 /* TiSafaridialogModule.m */,
+				DB75260F1F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.h */,
+				DB7526101F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -123,6 +129,7 @@
 			files = (
 				AA747D9F0F9514B9006C5449 /* TiSafaridialog_Prefix.pch in Headers */,
 				24DD6CF91134B3F500162E58 /* TiSafaridialogModule.h in Headers */,
+				DB7526111F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.h in Headers */,
 				24DE9E1111C5FE74003F90F6 /* TiSafaridialogModuleAssets.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB7526121F14A0EB0072D687 /* TiSafaridialogAuthenticationSessionProxy.m in Sources */,
 				24DD6CFA1134B3F500162E58 /* TiSafaridialogModule.m in Sources */,
 				24DE9E1211C5FE74003F90F6 /* TiSafaridialogModuleAssets.m in Sources */,
 			);
@@ -217,6 +225,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_UNGUARDED_AVAILABILITY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -258,6 +267,7 @@
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = NO;
 				DSTROOT = /tmp/TiSafaridialog.dst;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;

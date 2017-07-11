@@ -6,14 +6,23 @@
  * Please see the LICENSE included with this distribution for details.
  */
 
-#import "TiModule.h"
+#if IS_IOS_11
+
+#import "TiProxy.h"
 #import <SafariServices/SafariServices.h>
 
-@interface TiSafaridialogModule :TiModule<SFSafariViewControllerDelegate>{
-@private
-    SFSafariViewController* _safariController;
-    NSString* _url;
-    BOOL _isOpen;
+@interface TiSafaridialogAuthenticationSessionProxy : TiProxy {
+    SFAuthenticationSession *_authSession;
 }
 
+#pragma mark Public API's
+
+- (void)start:(id)unused;
+
+- (void)cancel:(id)unused;
+
+- (NSNumber *)isSupported:(id)unused;
+
 @end
+
+#endif

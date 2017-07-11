@@ -1,5 +1,5 @@
 /**
- * Ti.SafariDialog
+ * Ti.Safaridialog
  *
  * Copyright (c) 2009-2015 by Appcelerator, Inc. All Rights Reserved.
  * Licensed under the terms of the Apache Public License
