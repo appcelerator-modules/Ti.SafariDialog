@@ -2,7 +2,7 @@ name: Modules.SafariDialog.AuthenticationSession
 summary: Authenticate a user with a web service, even if the web service is run by a third party.
 platforms: [iphone, ipad]
 since: "6.2.0"
-extends: Titanium.Module
+extends: Titanium.Proxy
 osver: {ios: {min: "11.0"}}
 description: |
     
@@ -75,7 +75,7 @@ properties:
 
 methods:
   - name: start
-    summary: Starts the SFAuthenticationSession instance after it is instantiated.
+    summary: Starts the `AuthenticationSession` instance after it is instantiated.
     description: |
         The `start` method can only be called once for an `AuthenticationSession` 
         instance. This also means calling start on a canceled session will fail.
