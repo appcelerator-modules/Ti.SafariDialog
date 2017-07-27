@@ -11,8 +11,8 @@
 
 @interface TiSafaridialogModule :TiModule<SFSafariViewControllerDelegate>{
 @private
-    SFSafariViewController* _safariController;
-    NSString* _url;
+    SFSafariViewController *_safariController;
+    NSString *_url;
     BOOL _isOpen;
 }
 

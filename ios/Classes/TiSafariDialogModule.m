@@ -23,7 +23,7 @@
 }
 
 // this is generated for your module, please do not change it
-- (NSString*)moduleId
+- (NSString *)moduleId
 {
 	return @"ti.safaridialog";
 }
@@ -47,7 +47,7 @@
     
     _isOpen = NO;
     
-    if ([self _hasListeners:@"close"]){
+    if ([self _hasListeners:@"close"]) {
         [self fireEvent:@"close" withObject:@{
             @"success": NUMINT(YES),
             @"url": [_url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
@@ -60,7 +60,7 @@
     [self teardown];
 }
 
-- (SFSafariViewController *)safariController:(NSString*)url withEntersReaderIfAvailable:(BOOL)entersReaderIfAvailable andBarCollapsingEnabled:(BOOL)barCollapsingEnabled
+- (SFSafariViewController *)safariController:(NSString *)url withEntersReaderIfAvailable:(BOOL)entersReaderIfAvailable andBarCollapsingEnabled:(BOOL)barCollapsingEnabled
 {
     if (_safariController == nil) {
         NSURL *safariURL = [NSURL URLWithString:[url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -102,7 +102,7 @@
     return NUMBOOL(_isOpen);
 }
 
-- (NSNumber*)isOpen:(id)unused
+- (NSNumber *)isOpen:(id)unused
 {
     return NUMBOOL(_isOpen);
 }
@@ -122,7 +122,7 @@
 {
     ENSURE_UI_THREAD(close,unused);
     
-    if(_safariController != nil){
+    if (_safariController != nil) {
         [[TiApp app] hideModalController:_safariController animated:YES];
         [self teardown];
     }
@@ -134,7 +134,7 @@
     ENSURE_SINGLE_ARG(args,NSDictionary);
     ENSURE_UI_THREAD(open,args);
     
-    if(![args objectForKey:@"url"]){
+    if (![args objectForKey:@"url"]) {
         NSLog(@"[ERROR] url is required");
         return;
     }
@@ -148,7 +148,7 @@
     barCollapsingEnabled = [TiUtils boolValue:@"barCollapsingEnabled" properties:args def:YES];
 #endif
     
-    SFSafariViewController* safari = [self safariController:_url withEntersReaderIfAvailable:entersReaderIfAvailable andBarCollapsingEnabled:barCollapsingEnabled];
+    SFSafariViewController *safari = [self safariController:_url withEntersReaderIfAvailable:entersReaderIfAvailable andBarCollapsingEnabled:barCollapsingEnabled];
     
     if ([args objectForKey:@"title"]) {
         [safari setTitle:[TiUtils stringValue:@"title" properties:args]];
@@ -191,7 +191,7 @@
     
     _isOpen = YES;
     
-    if ([self _hasListeners:@"open"]){
+    if ([self _hasListeners:@"open"]) {
         NSDictionary *event = [NSDictionary dictionaryWithObjectsAndKeys:
                                NUMINT(YES),@"success",
                                _url,@"url",
