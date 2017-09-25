@@ -1,3 +1,4 @@
+---
 name: Modules.SafariDialog
 summary: Allows a Titanium application to use the iOS Safari ViewController to create an embedded browser.
 platforms: [iphone, ipad]

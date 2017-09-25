@@ -1,31 +1,40 @@
+var Safari = require('ti.safaridialog');
 
-var safariDialog = require('ti.safaridialog');
-Ti.API.info("module is => " + safariDialog);
-
-var win = Titanium.UI.createWindow({  
-    title:'Demo', backgroundColor:'#fff',layout:'vertical'
+var win = Titanium.UI.createWindow({
+  title: 'Ti.SafariDialog Demo',
+  backgroundColor: '#fff'
 });
 
+var nav = Ti.UI.iOS.createNavigationWindow({
+  window: win
+})
+
 var btnOpenDialog = Ti.UI.createButton({
-	top:20, title:'Open Safari Dialog',
-	height:60, width:Ti.UI.FILL
+  title: 'Open Safari Dialog'
 });
 win.add(btnOpenDialog);
 
-btnOpenDialog.addEventListener('click',function(d){
-	safariDialog.open({
-		url:"http://appcelerator.com",
-		title:"Hello World",
-		tintColor:"red"
-	});
+btnOpenDialog.addEventListener('click', function(d) {
+  Safari.open({
+    url: 'http://appcelerator.com',
+    title: 'Hello World',
+    
+    // iOS 10+
+    tintColor: 'red',
+    barColor: 'green',
+
+    // iOS 11+
+    barCollapsingEnabled: false,
+    dismissButtonStyle: Safari.DISMISS_BUTTON_STYLE_CLOSE
+  });
 });
 
-safariDialog.addEventListener("open",function(e){
-	console.log("open: " + JSON.stringify(e));
+Safari.addEventListener('open', function(e) {
+  console.log('open: ' + JSON.stringify(e));
 });
 
-safariDialog.addEventListener("close",function(e){
-	console.log("close: " + JSON.stringify(e));
+Safari.addEventListener('close', function(e) {
+  console.log('close: ' + JSON.stringify(e));
 });
 
-win.open();
+nav.open();

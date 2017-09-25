@@ -1,3 +1,4 @@
+---
 name: Modules.SafariDialog.AuthenticationSession
 summary: Authenticate a user with a web service, even if the web service is run by a third party.
 platforms: [iphone, ipad]
@@ -37,21 +38,22 @@ description: |
 
     ### Getting Started
 
-    Create a new authentication session by providing a `url`, `scheme` and `callback` and start it:
+    Create a new authentication session by providing a `url` and `scheme`, create an event-listener and start:
         
         var Safari = require('ti.safaridialog');
         
         var authSession = Safari.createAuthenticationSession({
-            url: 'https://example.com/oauth',
-            scheme: 'myapp',
-            callback: function(e) {
-                if (!e.success) {
-                    Ti.API.error('Error authenticating: ' + e.error);
-                    return;
-                }
-                
-                Ti.API.info('Callback URL: ' + e.callbackURL);
-            }
+          url: 'https://example.com/oauth?callbackURL=myapp://',
+          scheme: 'myapp://'
+        });
+        
+        authSession.addEventListener('callback', function(e) {
+          if (!e.success) {
+              Ti.API.error('Error authenticating: ' + e.error);
+              return;
+          }
+          
+          Ti.API.info('Callback URL: ' + e.callbackURL);
         });
         
         authSession.start(); // Or cancel() to cancel it manually.
@@ -67,11 +69,18 @@ properties:
     summary: The custom URL scheme that the app expects in the callback URL.
     type: String
 
+events:
   - name: callback
     summary: |
         The callback which is called when the session is completed successfully 
         or canceled by user.
-    type: Callback<AuthenticationSessionCallback>
+    properties:
+      - name: error
+        summary: The error-message returned in case something went wrong.
+        type: String
+      - name: callbackURL
+        summary: The callback-URL returned in case the OAuth-flow succeeded.
+        type: String 
 
 methods:
   - name: start

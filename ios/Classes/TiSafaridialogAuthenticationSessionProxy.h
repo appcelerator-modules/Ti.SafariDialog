@@ -12,7 +12,7 @@
 #import <SafariServices/SafariServices.h>
 
 @interface TiSafaridialogAuthenticationSessionProxy : TiProxy {
-    SFAuthenticationSession *_authSession;
+  SFAuthenticationSession *_authSession;
 }
 
 #pragma mark Public API's
@@ -26,3 +26,4 @@
 @end
 
 #endif
+

@@ -15,41 +15,47 @@
 
 - (SFAuthenticationSession *)authSession
 {
-    if (_authSession == nil) {
-        _authSession = [[SFAuthenticationSession alloc] initWithURL:[TiUtils toURL:[self valueForKey:@"url"] proxy:self]
-                                                  callbackURLScheme:[TiUtils stringValue:[self valueForKey:@"scheme"]]
-                                                  completionHandler:^(NSURL *callbackURL, NSError *error) {
-                                                      KrollCallback *callback = (KrollCallback *)[self valueForKey:@"callback"];
-                                                      NSMutableDictionary *event = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                          @"success": NUMBOOL(error == nil)
-                                                      }];
-                                                      
-                                                      if (error != nil) {
-                                                          [event setObject:[error localizedDescription] forKey:@"error"];
-                                                      } else {
-                                                          [event setObject:[callbackURL absoluteString] forKey:@"callbackURL"];
-                                                      }
-                                                      
-                                                      [callback call:@[event] thisObject:self];
-                                                  }];
-    }
+  if (_authSession == nil) {
+    NSString *url = [TiUtils stringValue:[self valueForKey:@"url"]];
+    NSString *scheme = [TiUtils stringValue:[self valueForKey:@"scheme"]];
+    
+    _authSession = [[SFAuthenticationSession alloc] initWithURL:[TiUtils toURL:url proxy:self]
+                                              callbackURLScheme:[TiUtils stringValue:scheme]
+                                              completionHandler:^(NSURL *callbackURL, NSError *error) {
+                                                NSMutableDictionary *event = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                  @"success": NUMBOOL(error == nil)
+                                                }];
+                                                
+                                                if (error != nil) {
+                                                  [event setObject:[error localizedDescription] forKey:@"error"];
+                                                } else {
+                                                  [event setObject:[callbackURL absoluteString] forKey:@"callbackURL"];
+                                                }
+                                                
+                                                if ([self _hasListeners:@"callback"]) {
+                                                  [self fireEvent:@"callback" withObject:event];
+                                                }
+                                              }];
+  }
+  
+  return _authSession;
 }
 
 #pragma mark Public API's
 
 - (void)start:(id)unused
 {
-    [[self authSession] start];
+  [[self authSession] start];
 }
 
 - (void)cancel:(id)unused
 {
-    [[self authSession] cancel];
+  [[self authSession] cancel];
 }
 
 - (NSNumber *)isSupported:(id)unused
 {
-    return NUMBOOL([TiUtils isIOSVersionOrGreater:@"11.0"]);
+  return NUMBOOL([TiUtils isIOSVersionOrGreater:@"11.0"]);
 }
 
 @end

@@ -1,9 +1,5 @@
 /**
- * Ti.Safaridialog
- *
- * Copyright (c) 2009-2015 by Appcelerator, Inc. All Rights Reserved.
- * Licensed under the terms of the Apache Public License
- * Please see the LICENSE included with this distribution for details.
+ * This is a generated file. Do not edit or your changes will be lost
  */
 #import "TiSafaridialogModuleAssets.h"
 
