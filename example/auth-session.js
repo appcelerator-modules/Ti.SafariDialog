@@ -25,6 +25,9 @@ var btn = Ti.UI.createButton({
 });
 
 btn.addEventListener('click', function() {
+  if (!authSession.isSupported()) {
+    return Ti.API.error('This API is iOS 11+ only');
+  }
   authSession.start(); // Or cancel() to cancel it manually.
 });
 

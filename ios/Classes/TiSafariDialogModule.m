@@ -72,10 +72,12 @@
             
             _safariController = [[SFSafariViewController alloc] initWithURL:safariURL
                                                           configuration:config];
+        } else {
+#endif
+          _safariController = [[SFSafariViewController alloc] initWithURL:safariURL
+                                                  entersReaderIfAvailable:entersReaderIfAvailable];
+#if IS_IOS_11
         }
-#else
-        _safariController = [[SFSafariViewController alloc] initWithURL:safariURL
-                                            entersReaderIfAvailable:entersReaderIfAvailable];
 #endif
         
         [_safariController setDelegate:self];
