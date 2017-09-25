@@ -54,7 +54,7 @@ properties:
     type: Boolean
     osver: {ios: {min: "9.0"}}
     deprecated:
-        since: "6.2.0"
+        since: "6.3.0"
         notes: Use the <Modules.SafariDialog.isSupported> method instead.
     permission: read-only
 
@@ -63,7 +63,7 @@ properties:
     type: Boolean
     osver: {ios: {min: "9.0"}}
     deprecated:
-        since: "6.2.0"
+        since: "6.3.0"
         notes: Use the <Modules.SafariDialog.isOpen> method instead.
     permission: read-only
 
@@ -72,21 +72,21 @@ properties:
     description: Use with the `dismissButtonStyle` property in <Modules.SafariDialog.open>.
     type: Number
     permission: read-only
-    since: "6.2.0"
+    since: "6.3.0"
 
   - name: DISMISS_BUTTON_STYLE_CLOSE
     summary: Button style used to display a localized "Close" button.
     description: Use with the `dismissButtonStyle` property in <Modules.SafariDialog.open>.
     type: Number
     permission: read-only
-    since: "6.2.0"
+    since: "6.3.0"
 
   - name: DISMISS_BUTTON_STYLE_CANCEL
     summary: Button style used to display a localized "Cancel" button.
     description: Use with the `dismissButtonStyle` property in <Modules.SafariDialog.open>.
     type: Number
     permission: read-only
-    since: "6.2.0"
+    since: "6.3.0"
 
 methods:
   - name: isOpen
@@ -188,7 +188,9 @@ properties:
     type: String
 
   - name: dismissButtonStyle
-    summary: The dismiss-button-style of the Safari dialog close button. Available on iOS 11 and later.
+    summary: |
+        The dismiss-button-style of the Safari dialog close button.
+        Available on iOS 11+ and Titanium SDK 6.3.0+.
     optional: true
     type: Number
     constants: [Modules.SafariDialog.DISMISS_BUTTON_STYLE_*]
@@ -197,7 +199,7 @@ properties:
     summary: |
         Indicates if the Safari dialog should enable collapsing of the navigation 
         bar and hiding of the bottom toolbar when the user scrolls web content.
-        Available on iOS 11 and later.
+        Available on iOS 11+ and Titanium SDK 6.3.0+.
     optional: true
     default: true
     type: Boolean

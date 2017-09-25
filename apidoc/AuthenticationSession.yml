@@ -1,7 +1,7 @@
 name: Modules.SafariDialog.AuthenticationSession
 summary: Authenticate a user with a web service, even if the web service is run by a third party.
 platforms: [iphone, ipad]
-since: "6.2.0"
+since: "6.3.0"
 extends: Titanium.Proxy
 osver: {ios: {min: "11.0"}}
 description: |
@@ -31,7 +31,7 @@ description: |
 
     ### Requirements
 
-    The AuthenticationSession API is available with the Titanium SDK starting with Release 6.2.0.
+    The AuthenticationSession API is available with the Titanium SDK starting with Release 6.3.0.
     This module only works with devices running iOS 11.0 and later.
     Please make sure you have at least Xcode 9 to build to the required sources.
 

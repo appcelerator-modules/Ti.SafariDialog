@@ -98,7 +98,7 @@
 
 - (id)opened
 {
-    DEPRECATED_REPLACED(@"SafariDialog.opened", @"6.2.0", @"SafariDialog.isOpen()");
+    DEPRECATED_REPLACED(@"SafariDialog.opened", @"6.3.0", @"SafariDialog.isOpen()");
     return NUMBOOL(_isOpen);
 }
 
@@ -109,7 +109,7 @@
 
 - (id)supported
 {
-    DEPRECATED_REPLACED(@"SafariDialog.supported", @"6.2.0", @"SafariDialog.isSupported()");
+    DEPRECATED_REPLACED(@"SafariDialog.supported", @"6.3.0", @"SafariDialog.isSupported()");
     return [self isSupported:nil];
 }
 
@@ -157,26 +157,21 @@
     if ([args objectForKey:@"tintColor"]) {
         TiColor *newColor = [TiUtils colorValue:@"tintColor" properties:args];
         
-        if ([TiSafaridialogModule isIOS10OrGreater]) {
-#if IS_IOS_10
+        if ([TiUtils isIOS10OrGreater]) {
             [safari setPreferredControlTintColor:[newColor _color]];
-#endif
         } else {
             [[safari view] setTintColor:[newColor _color]];
         }
     }
     
-#if IS_IOS_10
     if ([args objectForKey:@"barColor"]) {
-        if ([TiSafaridialogModule isIOS10OrGreater]) {
+        if ([TiUtils isIOS10OrGreater]) {
             [safari setPreferredBarTintColor:[[TiUtils colorValue:@"barColor" properties:args] _color]];
         } else {
             NSLog(@"[ERROR] Ti.SafariDialog: The barColor property is only available in iOS 10 and later");
         }
     }
-#endif
-    
-    
+  
 #if IS_IOS_11
     if ([args objectForKey:@"dismissButtonStyle"]) {
         if (@available(iOS 11.0, *)) {
@@ -208,16 +203,5 @@ MAKE_SYSTEM_PROP(DISMISS_BUTTON_STYLE_DONE, SFSafariViewControllerDismissButtonS
 MAKE_SYSTEM_PROP(DISMISS_BUTTON_STYLE_CLOSE, SFSafariViewControllerDismissButtonStyleClose);
 MAKE_SYSTEM_PROP(DISMISS_BUTTON_STYLE_CANCEL, SFSafariViewControllerDismissButtonStyleCancel);
 #endif
-
-#pragma mark Utilities
-
-+ (BOOL)isIOS10OrGreater
-{
-#if IS_IOS_10
-    return [[[UIDevice currentDevice] systemVersion] compare:@"10.0" options:NSNumericSearch] != NSOrderedAscending;
-#else
-    return NO;
-#endif
-}
 
 @end
