@@ -1,3 +1,4 @@
+---
 name: Modules.SafariDialog
 summary: Allows a Titanium application to use the iOS Safari ViewController to create an embedded browser.
 platforms: [iphone, ipad]
@@ -32,16 +33,16 @@ description: |
 
     Use `require()` to access the module from JavaScript:
 
-        var dialog = require("ti.safaridialog");
+        var dialog = require('ti.safaridialog');
 
     The `dialog` variable is a reference to the module. Make API calls using this reference:
 
-        if(dialog.isSupported()){
-          dialog.open({
-            url:"http://appcelerator.com",
-            title:"Hello World",
-            tintColor:"red"
-          });
+        if (dialog.isSupported()) {
+            dialog.open({
+                url: 'http://appcelerator.com',
+                title: 'Titanium rocks!',
+                tintColor: 'red'
+            });
         }
 
     ### Sample Application
@@ -50,43 +51,53 @@ description: |
     `<TITANIUM_SDK_HOME>/modules/iphone/ti.safaridialog/<VERSION>/example/` folder.
 properties:
   - name: supported
-    summary: Indicates if SafariDialog is supported.
+    summary: Indicates if Safari dialog is supported.
     type: Boolean
     osver: {ios: {min: "9.0"}}
+    deprecated:
+        since: "6.3.0"
+        notes: Use the <Modules.SafariDialog.isSupported> method instead.
     permission: read-only
 
   - name: opened
-    summary: Indicates is SafariDialog is open.
+    summary: Indicates if Safari dialog is opened.
     type: Boolean
     osver: {ios: {min: "9.0"}}
+    deprecated:
+        since: "6.3.0"
+        notes: Use the <Modules.SafariDialog.isOpen> method instead.
     permission: read-only
-    
-  - name: tintColor
-    summary: The view's tintColor. This property is applicable on iOS 7 and greater. 
-    description: |
-        This property is a direct correspondant of the tintColor property of UIView on iOS. 
-        If no value is specified, the tintColor of the View is inherited from its superview. 
-    type: String
-    osver: {ios: {min: "9.0"}}
-    
-  - name: barColor
-    summary: Background color for the nav bar, as a color name or hex triplet.
-    description: |
-        For information about color values, see the "Colors" section of <Titanium.UI>. This property
-        is only available in iOS 10 and later and will be ignored on older versions.
-    type: String
-    osver: {ios: {min: "10.0"}}
-    since: 6.0.0
+
+  - name: DISMISS_BUTTON_STYLE_DONE
+    summary: Button style used to display a localized "Done" button.
+    description: Use with the `dismissButtonStyle` property in <Modules.SafariDialog.open>.
+    type: Number
+    permission: read-only
+    since: "6.3.0"
+
+  - name: DISMISS_BUTTON_STYLE_CLOSE
+    summary: Button style used to display a localized "Close" button.
+    description: Use with the `dismissButtonStyle` property in <Modules.SafariDialog.open>.
+    type: Number
+    permission: read-only
+    since: "6.3.0"
+
+  - name: DISMISS_BUTTON_STYLE_CANCEL
+    summary: Button style used to display a localized "Cancel" button.
+    description: Use with the `dismissButtonStyle` property in <Modules.SafariDialog.open>.
+    type: Number
+    permission: read-only
+    since: "6.3.0"
 
 methods:
   - name: isOpen
-    summary: Indicates if SafariDialog is open.
+    summary: Indicates if Safari dialog is open.
     osver: {ios: {min: "9.0"}}
     returns:
         type: Boolean
 
   - name: isSupported
-    summary: Indicates if SafariDialog is supported.
+    summary: Indicates if Safari dialog is supported.
     osver: {ios: {min: "9.0"}}
     returns:
         type: Boolean
@@ -94,61 +105,102 @@ methods:
   - name: open
     summary: Opens the SafariDialog with the options provided.
     description: |
-      var dialog = require("ti.safaridialog");
-       if(dialog.isSupported()){
-          dialog.open({
-              url:"http://appcelerator.com",
-              title:"Hello World",
-              tintColor:"red"
-          });
-       }
+        var dialog = require('ti.safaridialog');
+        if (dialog.isSupported()) {
+            dialog.open({
+                url: 'http://appcelerator.com',
+                title: 'Hello World',
+                tintColor: 'red'
+            });
+        }
     osver: {ios: {min: "9.0"}}
     parameters:
       - name: params
-        summary: |
-            Dictionary containing the following properties:
-
-              * `url` (String): Required field.  The URL to be opened in the SafariDialog. 
-              * `entersReaderIfAvailable` (Boolean): Optional field.  Indicates if the Safari Reader version of content should be shown automatically.
-              * `title` (String): Optional field.  Sets the title of the page displayed. 
-              * `tintColor` (String): Optional field.  The tintColor applied to SafariDialog.
-
-        type: Dictionary
+        summary: Dictionary used to configure the Safari dialog.
+        type: SafariDialogOpenParams
 
   - name: close
-    summary: Programmatically closes the SafariDialog.
+    summary: Programmatically closes the Safari dialog.
     description: |
-      var dialog = require("ti.safaridialog");
-       if(dialog.isOpen()){
-          dialog.close();
-       }
+        var dialog = require('ti.safaridialog');
+        if (dialog.isOpen()) {
+            dialog.close();
+        }
     osver: {ios: {min: "9.0"}}
 events:
   - name: open
     summary: |
-      The open event is fired after the SafariDialog has opened.
+        The open event is fired after the Safari dialog has opened.
     properties:
       - name: url
-        summary: The URL provided when opening the SafariDialog
+        summary: The URL provided when opening the Safari dialog
         type: String
   - name: close
     summary: |
-      The close event is fired when the SafariDialog is closed by the user or programmatically.
+        The close event is fired when the Safari dialog is closed by the user 
+        or programmatically.
     properties:
       - name: url
-        summary: The URL provided when opening the SafariDialog
+        summary: The URL provided when opening the Safari dialog
         type: String
   - name: load
     summary: Fired when the initial URL load is complete.
     description: |
-        This event is invoked when the safari dialog completes the loading of the URL that you pass to
-        its initializer. It is not invoked for any subsequent page loads in the same safari dialog instance.
+        This event is invoked when the safari dialog completes the loading of the 
+        URL that you pass to it's initializer. It is not invoked for any subsequent 
+        page loads in the same safari dialog instance. 
+        
         Note: This event is available in Titanium SDK 6.0.0 and later.
     properties:
       - name: url
-        summary: The URL provided when opening the SafariDialog
+        summary: The URL provided when opening the Safari dialog
         type: String
       - name: success
         summary: Returns `true` if loading completed successfully, `false` otherwise.
         type: Boolean
                
+---
+name: SafariDialogOpenParams
+summary: Parmaters used in the <Modules.SafariDialog.open> method
+properties:
+  - name: url
+    summary: The URL to be opened.
+    optional: false
+    type: String
+
+  - name: entersReaderIfAvailable
+    summary: Indicates if the Safari Reader version of content should be shown automatically.
+    optional: true
+    type: Boolean
+
+  - name: title
+    summary: The URL to be opened.
+    optional: true
+    type: String
+
+  - name: tintColor
+    summary: The tint-color of the Safari dialog.
+    optional: true
+    type: String
+
+  - name: barColor
+    summary: The bar-color of the Safari dialog. Available on iOS 10 and later.
+    optional: true
+    type: String
+
+  - name: dismissButtonStyle
+    summary: |
+        The dismiss-button-style of the Safari dialog close button.
+        Available on iOS 11+ and Titanium SDK 6.3.0+.
+    optional: true
+    type: Number
+    constants: [Modules.SafariDialog.DISMISS_BUTTON_STYLE_*]
+ 
+  - name: barCollapsingEnabled
+    summary: |
+        Indicates if the Safari dialog should enable collapsing of the navigation 
+        bar and hiding of the bottom toolbar when the user scrolls web content.
+        Available on iOS 11+ and Titanium SDK 6.3.0+.
+    optional: true
+    default: true
+    type: Boolean

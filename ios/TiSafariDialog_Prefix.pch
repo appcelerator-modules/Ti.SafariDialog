@@ -3,8 +3,9 @@
     #import <UIKit/UIKit.h>
 #endif
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
-#define IS_IOS_10 true
+// iOS 11+ API's
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+#define IS_IOS_11 true
 #else
-#define IS_IOS_10 false
+#define IS_IOS_11 false
 #endif
