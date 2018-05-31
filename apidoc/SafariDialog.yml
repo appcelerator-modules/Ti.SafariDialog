@@ -7,6 +7,11 @@ extends: Titanium.Module
 osver: {ios: {min: "9.0"}}
 description: |
     
+    ### Deprecation Note
+
+    This module has been deprecated in favor of the cross-platform module [Ti.WebDialog](https://github.com/appcelerator-modules/titanium-web-dialog)
+    that shares full backwards compatibility with Ti.SafariDialog on iOS.
+
     The SafariDialog module provides Titanium access to the native SFSafariViewController. This enables you to 
     deliver interactive web content in your app just like Safari, including the key Safari UI elements already 
     familiar to your users. See how to easily bring Safari features like Reader and AutoFill into your app.
@@ -16,7 +21,6 @@ description: |
     The SafariDialog module is available with the Titanium SDK starting with Release 5.1.0.
     This module only works with devices running iOS 9.
     Please make sure you have at least Xcode 7 to build to the required sources.
-
 
     ### Getting Started
 
