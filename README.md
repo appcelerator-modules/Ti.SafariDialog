@@ -1,5 +1,11 @@
 # Ti.SafariDialog
 
+## ⚠️ WARNING
+
+This module has been deprecated in favor of the cross-platform module [Ti.WebDialog](https://github.com/appcelerator-modules/titanium-web-dialog)
+that shares full backwards compatibility with Ti.SafariDialog on iOS. Migrate today!
+
+
 ## Description
 
 The SafariDialog module provides Titanium access to the native SFSafariViewController. This enables you to 
@@ -8,9 +14,6 @@ familiar to your users. See how to easily bring Safari features like Reader and 
 
 For usage see the code in [app.js in the example folder](example/app.js)  
 Documentation can be found [here](apidoc/SafariDialog.yml)
-
-> **NOTE**: This module has been deprecated in favor of the cross-platform module [Ti.WebDialog](https://github.com/appcelerator-modules/titanium-web-dialog)
-that shares full backwards compatibility with Ti.SafariDialog on iOS. Migrate today!
 
 ## Contributors
 
